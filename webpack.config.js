@@ -30,6 +30,16 @@ module.exports = {
     // ローダーの設定
     module: {
         rules: [{
+                test: /\.(glsl|frag|vert)$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: 'raw-loader',
+                    loader: 'glslify-loader',
+                    loader:'file-loader'
+                }]
+                
+            },
+            {
                 // babelローダーの処理対象ファイル
                 test: /\.js$/,
                 // ローダーの処理対象から外すディレクトリ
@@ -100,22 +110,6 @@ module.exports = {
                     }
                 }]
             },
-
-
-
-            {
-                test: /\.(glsl|frag|vert)$/,
-                loader: 'raw',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.(glsl|frag|vert)$/,
-                loader: 'glslify',
-                exclude: /node_modules/
-            }
-
-
-
         ]
     },
     plugins: [
@@ -129,7 +123,7 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery'
         }),
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin('styles.css')
 
     ],
     devServer: {

@@ -1,152 +1,118 @@
-const baseVert = require('glslify!raw!./js/shader/base.frag');
-// const baseFrag = require('./js/shader/base.frag');
+const baseVert = require('./js/shader/base.vert');
+const baseFrag = require('./js/shader/base.frag');
 
 // import './css/sass/app.scss';
 
-
-// let notWebGL = function () {
-//     // webGL非対応時の記述
-//     console.log('this browser does not support webGL')
-// };
-
-// if (document.getElementsByTagName('html')[0].classList.contains('no-webgl')) {
-//     notWebGL();
-// }
-
-// // three.jsのとき
-// try {
-//     let renderer = new THREE.WebGLRenderer();
-// } catch (e) {
-//     notWebGL();
-// }
-
-// // 返ってくる値を確認してみましょう！
-// console.log(ubu.detect);
-// // IEの時
-// if (ubu.detect.browser.ie) {
-//     console.log('IEさん、動画テクスチャはちょっと…無理ですね…')
-// }
-
-// window.onload = function () {
-
-//     var renderer;
-//     var camera, scene;
-//     var theta = 0;
-//     var clock = new THREE.Clock();
-//     var composer;
-//     var customPass;
-
-//     var windowWidth = window.innerWidth;
-//     var windowHeight = window.innerHeight;
-//     var aspect = windowWidth / windowHeight;
-//     var videoTexture;
-//     var video;
-
-//     //uniform用
-//     var distortion = 0.0;
-//     var distortion2 = 0.0;
-//     var scrollSpeed = 0.0;
-//     var time = 0.0;
-
-//     //audio関連の変数
-//     let context;
-//     let analyser;
-//     let bufferLength;
-//     let dataArray;
-//     let source;
-//     let fftSize;
+const THREE = require('three-js')([
+  'EffectComposer',
+  'OrbitControls',
+  'CopyShader',
+  'ShaderPass',
+  'RenderPass',
+  'MaskPass'
+]);
 
 
-//     //audioInit();
-//     init();
+let notWebGL = function () {
+    // webGL非対応時の記述
+    console.log('this browser does not support webGL')
+};
+
+if (document.getElementsByTagName('html')[0].classList.contains('no-webgl')) {
+    notWebGL();
+}
+
+// three.jsのとき
+try {
+    let renderer = new THREE.WebGLRenderer();
+} catch (e) {
+    notWebGL();
+}
 
 
+window.onload = function () {
 
-//     function init() {
+    var renderer;
+    var camera, scene;
+    var theta = 0;
+    var clock = new THREE.Clock();
+    var composer;
+    var customPass;
 
-//         // rendererの作成
-//         renderer = new THREE.WebGLRenderer();
-//         renderer.setClearColor(new THREE.Color(0xffffff), 1.0);
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+    var aspect = windowWidth / windowHeight;
+    var videoTexture;
+    var video;
 
-//         // canvasをbodyに追加
-//         document.body.appendChild(renderer.domElement);
+    //uniform用
+    var distortion = 0.0;
+    var distortion2 = 0.0;
+    var scrollSpeed = 0.0;
+    var time = 0.0;
 
-//         // canvasをリサイズ
-//         renderer.setSize(windowWidth, windowHeight);
-
-//         // ベースの描画処理（renderTarget への描画用）
-//         scene = new THREE.Scene();
-
-//         //LIGHTS
-//         var light = new THREE.AmbientLight(0xffffff, 0.5);
-//         scene.add(light);
-
-//         //ベースの描画処理用カメラ                      
-//         camera = new THREE.PerspectiveCamera(60, windowWidth / windowHeight, 0.1, 1000);
-//         camera.position.z = 1;
-
-//         var material = new THREE.MeshLambertMaterial();
-//         var geometry = new THREE.PlaneGeometry(2, 3, 1, 1);
-//         var mesh = new THREE.Mesh(geometry, material);
-//         scene.add(mesh);
-
-//         composer = new THREE.EffectComposer(renderer);
-
-//         //現在のシーンを設定
-//         var renderPass = new THREE.RenderPass(scene, camera);
-//         composer.addPass(renderPass);
-//         //カスタムシェーダー
-//         var myEffect = {
-//             uniforms: {
-//                 "tDiffuse": {
-//                     value: null
-//                 },
-//                 "time": {
-//                     type: "f",
-//                     value: time
-//                 },
-//                 "distortion": {
-//                     type: "f",
-//                     value: distortion
-//                 },
-//                 "distortion2": {
-//                     type: "f",
-//                     value: 2.0
-//                 },
-//                 "scrollSpeed": {
-//                     type: "f",
-//                     value: 0.5
-//                 },
-//                 "speed": {
-//                     type: "f",
-//                     value: 1.0
-//                 },
-//                 "resolution": {
-//                     type: 'v2',
-//                     value: new THREE.Vector2(windowWidth, windowHeight)
-//                 }
-//             },
-//             vertexShader: baseVert,
-//             fragmentShader: baseFrag
-//         }
-
-//         //エフェクト結果をスクリーンに描画する
-//         customPass = new THREE.ShaderPass(myEffect);
-//         customPass.renderToScreen = true;
-//         composer.addPass(customPass);
+    //audio関連の変数
+    let context;
+    let analyser;
+    let bufferLength;
+    let dataArray;
+    let source;
+    let fftSize;
 
 
-//         render();
-//     }
+    //audioInit();
+    init();
+
+    function init() {
+      let windowWidth = window.innerWidth;
+      let windowHeight = window.innerHeight;
+    
+      // rendererの作成
+      let renderer = new THREE.WebGLRenderer();
+      
+      // canvasをbodyに追加
+      document.body.appendChild(renderer.domElement);
+    
+      // canvasをリサイズ
+      renderer.setSize(windowWidth, windowHeight);
+    
+      // scene作成
+      let scene = new THREE.Scene();
+      
+      // camera作成
+      let camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
+      camera.position.z = 100;
+    
+      // Geometry作成
+      let geometry = new THREE.PlaneBufferGeometry(100, 100);
+      
+      // Material作成
+      let material = new THREE.ShaderMaterial({
+        vertexShader: baseVert,
+        fragmentShader: baseFrag,
+        uniforms:{
+          uColor: {type: "c", value: new THREE.Color(0xFF0000)}
+        }
+      });
+      
+      // Mesh作成
+      let mesh = new THREE.Mesh(geometry,material);
+    
+      // Meshをシーンに追加
+      scene.add(mesh);
+    
+      // draw
+      renderer.render(scene, camera);
+
+
+        render();
+    }
 
     
 
-//     function render() {
+    function render() {
+      renderer.render(scene, camera);
 
-//         time = clock.getElapsedTime();
-//         customPass.uniforms.time.value = time;            
-//         composer.render();
-
-//         requestAnimationFrame(render);
-//     }
-// };
+        requestAnimationFrame(render);
+    }
+};
