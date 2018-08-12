@@ -1,5 +1,7 @@
 const baseVert = require('./js/shader/base.vert');
 const baseFrag = require('./js/shader/base.frag');
+import './css/sass/normalize.scss';
+import './css/sass/app.scss';
 
 
 // import './css/sass/app.scss';
@@ -37,9 +39,9 @@ window.onload = function () {
   var clock = new THREE.Clock();
 
 
-  let windowWidth = window.innerWidth;
-  let windowHeight = window.innerHeight;
-  let aspect = windowWidth / windowHeight;
+  let windowW = window.innerWidth;
+  let windowH = window.innerHeight;
+  let aspect = windowW / windowH;
 
   init();
 
@@ -52,7 +54,7 @@ window.onload = function () {
     document.body.appendChild(renderer.domElement);
 
     // canvasをリサイズ
-    renderer.setSize(windowWidth, windowHeight);
+    renderer.setSize(windowW, windowH);
 
     // scene作成
     scene = new THREE.Scene();
@@ -62,15 +64,16 @@ window.onload = function () {
 
 
     // camera作成
-    camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
-    camera.position.z = 10;
+    camera = new THREE.PerspectiveCamera(75, windowW / windowH, 0.1, 1000);
+    camera.position.z = 1;
 
 
     //Geometryを作成
     let geometry = new THREE.BufferGeometry();
 
     //頂点座標
-    let vertices = new Float32Array([-1.0 * aspect, 1.0, 0.0,
+    let vertices = new Float32Array([
+      -1.0 * aspect, 1.0, 0.0,
       1.0 * aspect, 1.0, 0.0, -1.0 * aspect, -1.0, 0.0,
       1.0 * aspect, -1.0, 0.0
 
