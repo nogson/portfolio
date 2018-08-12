@@ -29,16 +29,7 @@ module.exports = {
     },
     // ローダーの設定
     module: {
-        rules: [{
-                test: /\.(glsl|frag|vert)$/,
-                exclude: /node_modules/,
-                use: [{
-                    loader: 'raw-loader',
-                    loader: 'glslify-loader',
-                    loader:'file-loader'
-                }]
-                
-            },
+        rules: [
             {
                 // babelローダーの処理対象ファイル
                 test: /\.js$/,
@@ -58,6 +49,10 @@ module.exports = {
                         ]
                     }
                 }]
+            },
+            {
+                test: /\.(glsl|frag|vert)$/,
+                loader: 'webpack-glsl-loader'
             },
             {
                 // htmlローダーの処理対象ファイル
@@ -93,23 +88,14 @@ module.exports = {
                 })
             },
             {
-                test: /\.(svg|png|jpg|gif)$/,
+                test: /\.(svg|png|jpg|gif|mov|mp4)$/,
                 use: [{
                     loader: 'file-loader',
                     options: {
                         name: '[path][name].[ext]'
                     }
                 }]
-            },
-            {
-                test: /\.(mov|mp4)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[path][name].[ext]'
-                    }
-                }]
-            },
+            }
         ]
     },
     plugins: [
