@@ -2,20 +2,39 @@
 @import "variables.scss";
 @import "mixin.scss";
 html {
-    font-size: 62.5%;
-    width: 100%;
+  font-size: 62.5%;
+  width: 100%;
 }
 
 body {
-    width: 100%;
-    font-size: 1.4em;
-    line-height: 1.8;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "Yu Gothic", YuGothic, sans-serif;
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: "tnum";
-    color: $color3;
+  width: 100%;
+  font-size: 1.4em;
+  line-height: 1.8;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Noto Sans Japanese", "Yu Gothic", YuGothic, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  color: $color3;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.md_main {
+  padding: 100px;
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.md_main_article {
+  background: #FFF;
+  width: 100%;
 }
