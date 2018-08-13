@@ -1,6 +1,6 @@
 const baseVert = require('./shader/base.vert');
 const baseFrag = require('./shader/base.frag');
-const texture1 = require('../images/texture1.png');
+const texture1 = require('../assets/images/texture1.png');
 
 const THREE = require('three-js')([
   'EffectComposer',

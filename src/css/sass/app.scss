@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 @import "variables.scss";
 @import "mixin.scss";
 html {
@@ -28,13 +29,33 @@ canvas {
 }
 
 .md_main {
-  padding: 100px;
+  padding: 50px;
   position: fixed;
   width: 100%;
   box-sizing: border-box;
 }
 
 .md_main_article {
-  background: #FFF;
   width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.md_title_1 {
+  font-size: 50px;
+  line-height: 1.1;
+  font-family: 'Roboto', sans-serif;
+  >* {
+    &:first-child {
+      letter-spacing: 0.5em;
+      opacity: 0;
+    }
+    &:last-child{
+      letter-spacing: 0.52em;
+    }
+  }
+  span {
+    display: block;
+  }
 }
