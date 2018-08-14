@@ -26,11 +26,10 @@ window.onload = function () {
   //背景画像を表示
   new Background();
 
-  //articleの高さを設定
   let windowH = window.innerHeight;
-  let articles = document.getElementsByClassName('md_main_article');
+  let articles = document.getElementsByClassName('md_article');
   
-
+   //articleの高さを設定
   for(let i=0,j = articles.length; i < j;i ++){
     articles[i].style.height = windowH - 100 + 'px';
   }

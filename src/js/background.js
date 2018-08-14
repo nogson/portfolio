@@ -1,6 +1,8 @@
 const baseVert = require('./shader/base.vert');
 const baseFrag = require('./shader/base.frag');
 const texture1 = require('../assets/images/texture1.png');
+const texture2 = require('../assets/images/texture1.png');
+
 
 const THREE = require('three-js')([
   'EffectComposer',
@@ -20,12 +22,17 @@ let ctx;
 let mesh;
 
 //uniform変数
-let uTime;
+let uTime = 0;
+let uScroll = 0;
+let uIndex = 0;
+let uAlpha = 0;
 
 var clock = new THREE.Clock();
 let windowW = window.innerWidth;
 let windowH = window.innerHeight;
 let aspect = windowW / windowH;
+let documentH = document.body.clientHeight;
+let articles = document.getElementsByClassName('md_article');
 
 
 export default class Background {
@@ -38,9 +45,6 @@ export default class Background {
   init() {
     renderer = new THREE.WebGLRenderer();
     ctx = renderer.context;
-    ctx.getShaderInfoLog = function () {
-      return ''
-    };
 
     // canvasをbodyに追加
     document.body.appendChild(renderer.domElement);
@@ -61,6 +65,16 @@ export default class Background {
 
     this.create();
     this.render();
+
+    //スクロールイベント
+    $(window).scroll(function (e) {
+      let sectionH =　documentH/articles.length;
+      uScroll = $(e.target).scrollTop();
+      uIndex = Math.floor(uScroll/(documentH/articles.length));
+      uAlpha = (uScroll%sectionH)/sectionH;
+
+    });
+
   }
 
   //オブジェクトを作成
@@ -73,7 +87,6 @@ export default class Background {
     let vertices = new Float32Array([-1.0 * aspect, 1.0, 0.0,
       1.0 * aspect, 1.0, 0.0, -1.0 * aspect, -1.0, 0.0,
       1.0 * aspect, -1.0, 0.0
-
     ]);
 
     //頂点インデックス
@@ -103,9 +116,25 @@ export default class Background {
           type: 'f',
           value: uTime
         },
-        uTex: {
+        scroll: {
+          type: 'f',
+          value: uScroll
+        },
+        alpha: {
+          type: 'f',
+          value: uAlpha
+        }, 
+        index: {
+          type: 'f',
+          value: uIndex
+        },        
+        uTex1: {
           type: 't',
           value: new THREE.TextureLoader().load(texture1)
+        },
+        uTex2: {
+          type: 't',
+          value: new THREE.TextureLoader().load(texture2)
         }
       },
       vertexShader: baseVert,
@@ -122,6 +151,7 @@ export default class Background {
   render() {
     uTime = clock.getElapsedTime();
     mesh.material.uniforms.time.value = uTime;
+    mesh.material.uniforms.scroll.value = uScroll;
     renderer.render(scene, camera);
     requestAnimationFrame(this.render.bind(this));
   }
