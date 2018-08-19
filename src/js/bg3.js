@@ -1,5 +1,5 @@
-const vert = require('./shader/bg1.vert');
-const frag = require('./shader/bg1.frag');
+const vert = require('./shader/bg2.vert');
+const frag = require('./shader/bg2.frag');
 const texture = require('../assets/images/texture3.png');
 
 const THREE = require('three-js')([]);

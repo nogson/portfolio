@@ -107,6 +107,10 @@ export default class Bg1 {
         texture: {
           type: 't',
           value: new THREE.TextureLoader().load(texture)
+        },
+        resolution:{
+          type:'v2',
+          value:new THREE.Vector2(this.windowW,this.windowH)
         }
       },
       vertexShader: vert,

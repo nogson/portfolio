@@ -104,6 +104,15 @@ canvas {
   width: 0;
 }
 
+.md_title_name{
+  margin-top: 16px;
+  display: block;
+  img{
+    width: 150px;
+    box-sizing: border-box;
+  }
+}
+
 .md_title_1{
   >span{
     display: block;
@@ -177,9 +186,10 @@ canvas {
       background:rgba(#FFF,0.4);
     }
 
-    &:first-child{
+    &:first-child,
+    &:last-child{
       &::after{
-        height: 3px;
+        height: 2px;
         border-radius: 0;
       }
     }
@@ -205,5 +215,21 @@ canvas {
       width: 60% !important;
       opacity: 0;
     }
+  }
+}
+
+.magin_b_m{
+  margin-bottom: 18px;
+}
+
+.md_icons{
+  display: flex;
+  a{
+    margin-right: 12px;
+
+  }
+  img{
+    width: 30px;
+    color: #FFF;
   }
 }

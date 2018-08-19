@@ -23,7 +23,7 @@ try {
 
 window.onload = function () {
   //背景画像を表示
-  //new Background();
+  new Background();
 
   let windowH = window.innerHeight;
   let articles = document.getElementsByClassName('md_article');
