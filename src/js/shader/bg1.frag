@@ -1,10 +1,8 @@
-
-    // This shader useds noise shaders by stegu -- http://webstaff.itn.liu.se/~stegu/
-    // This is supposed to look like snow falling, for example like http://24.media.tumblr.com/tumblr_mdhvqrK2EJ1rcru73o1_500.gif
-	 // for future starscroll/// Gtr
 #ifdef GL_ES
 precision mediump float;
 #endif
+
+#define NUM_OCTAVES 8
 
 uniform float time;
 uniform vec2 mouse;
@@ -15,160 +13,88 @@ uniform float scroll;
 uniform float alpha;
 
 
-		vec2 mod289(vec2 x) {
-		  return x - floor(x * (1.0 / 289.0)) * 289.0;
-		}
+mat3 rotX(float a) {
+	float c = cos(a);
+	float s = sin(a);
+	return mat3(
+		1, 0, 0,
+		0, c, -s,
+		0, s, c
+	);
+}
+mat3 rotY(float a) {
+	float c = cos(a);
+	float s = sin(a);
+	return mat3(
+		c, 0, -s,
+		0, 1, 0,
+		s, 0, c
+	);
+}
 
-		vec3 mod289(vec3 x) {
-		  	return x - floor(x * (1.0 / 289.0)) * 289.0;
-		}
-		
-		vec4 mod289(vec4 x) {
-		  	return x - floor(x * (1.0 / 289.0)) * 289.0;
-		}
-		
-		vec3 permute(vec3 x) {
-		  return mod289(((x*34.0)+1.0)*x);
-		}
+float random(vec2 pos) {
+	return fract(sin(dot(pos.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+}
 
-		vec4 permute(vec4 x) {
-		  return mod((34.0 * x + 1.0) * x, 289.0);
-		}
+float noise(vec2 pos) {
+	vec2 i = floor(pos);
+	vec2 f = fract(pos);
+	float a = random(i + vec2(0.0, 0.0));
+	float b = random(i + vec2(1.0, 0.0));
+	float c = random(i + vec2(0.0, 1.0));
+	float d = random(i + vec2(1.0, 1.0));
+	vec2 u = f * f * (3.0 - 2.0 * f);
+	return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
 
-		vec4 taylorInvSqrt(vec4 r)
-		{
-		  	return 1.79284291400159 - 0.85373472095314 * r;
-		}
-		
-		float snoise(vec2 v)
-		{
-				const vec4 C = vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
-				vec2 i  = floor(v + dot(v, C.yy) );
-				vec2 x0 = v -   i + dot(i, C.xx);
-				
-				vec2 i1;
-				i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-				vec4 x12 = x0.xyxy + C.xxzz;
-				x12.xy -= i1;
-				
-				i = mod289(i); // Avoid truncation effects in permutation
-				vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
-					+ i.x + vec3(0.0, i1.x, 1.0 ));
-				
-				vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-				m = m*m ;
-				m = m*m ;
-				
-				vec3 x = 2.0 * fract(p * C.www) - 1.0;
-				vec3 h = abs(x) - 0.5;
-				vec3 ox = floor(x + 0.5);
-				vec3 a0 = x - ox;
-				
-				m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
-				
-				vec3 g;
-				g.x  = a0.x  * x0.x  + h.x  * x0.y;
-				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+float fbm(vec2 pos) {
+	float v = 0.0;
+	float a = 0.5;
+	float mat = 0.0;
 
-				return 130.0 * dot(m, g);		
-		}
-		
-		float cellular2x2(vec2 P)
-		{
-				#define K 0.142857142857 // 1/7
-				#define K2 0.0714285714285 // K/2
-				#define jitter 0.8 // jitter 1.0 makes F1 wrong more often
-				
-				vec2 Pi = mod(floor(P), 289.0);
-				vec2 Pf = fract(P);
-				vec4 Pfx = Pf.x + vec4(-0.5, -1.5, -0.5, -1.5);
-				vec4 Pfy = Pf.y + vec4(-0.5, -0.5, -1.5, -1.5);
-				vec4 p = permute(Pi.x + vec4(0.0, 1.0, 0.0, 1.0));
-				p = permute(p + Pi.y + vec4(0.0, 0.0, 1.0, 1.0));
-				vec4 ox = mod(p, 7.0)*K+K2;
-				vec4 oy = mod(floor(p*K),7.0)*K+K2;
-				vec4 dx = Pfx + jitter*ox;
-				vec4 dy = Pfy + jitter*oy;
-				vec4 d = dx * dx + dy * dy; // d11, d12, d21 and d22, squared
-				// Sort out the two smallest distances
-				
-				// Cheat and pick only F1
-				d.xy = min(d.xy, d.zw);
-				d.x = min(d.x, d.y);
-				return d.x; // F1 duplicated, F2 not computed
-		}
-
-		float fbm(vec2 p) {
- 		   float f = 0.0;
-    		float w = 0.5;
-    		for (int i = 0; i < 5; i ++) {
-						f += w * snoise(p);
-						p *= 2.;
-						w *= 0.5;
-    		}
-    		return f;
-		}
-
-		void main()
-		{
-				float speed=1.0;
-				
-				vec2 uv = gl_FragCoord.xy / resolution.xy;
-				
-				uv.x*=(resolution.x/resolution.y);
-				
-				vec2 suncent=vec2(0.3,0.9);
-				
-				float suns=(1.0-distance(uv,suncent));
-				suns=clamp(0.0+suns,0.0,1.0);
-				float sunsh=smoothstep(0.85,0.95,suns);
-
-				float slope;
-				slope=0.8+uv.x-(uv.y*5.3);
-				slope=1.0-smoothstep(0.55,0.0,slope);								
-				
-				float noise=abs(fbm(uv));
-				slope=(noise*0.4)+(slope-((1.0-noise)*slope*0.1))*0.6;
-				slope=clamp(slope,0.0,1.0);
-										
-				vec2 GA = vec2(0.);
-				GA.x-=time*1.0;
-				GA.y+=time*0.0;
-				GA*=speed;
-			
-				float F1=0.0,F2=0.0,F3=0.0,F4=0.0,F5=0.0,N1=0.0,N2=0.0,N3=0.0,N4=0.0,N5=0.0;
-				float A=0.0,A1=0.0,A2=0.0,A3=0.0,A4=0.0,A5=0.0;
+	//回転行列
+	mat2 rot = mat2(cos(mat), sin(mat), -sin(mat), cos(mat));
+	for (int i=0; i<NUM_OCTAVES; i++) {
+		v += a * noise(pos);
+		pos = rot * pos * 2.0;
+		//a *= 0.5 + sin(time * 0.25)*0.1;
+		a *= 0.5;
+	}
+	return v ;
+}
 
 
-				// Attentuation
-				A = (uv.x-(uv.y*2.0));
-				A = clamp(A,0.0,1.0);
+void main(void) {
+	vec2 p = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
 
-				// Snow layers, somewhat like an fbm with worley layers.
-				F1 = 1.0-cellular2x2((uv+(GA*0.1))*8.0);	
-				A1 = 1.0-(A*1.0);
-				N1 = smoothstep(0.998,1.0,F1)*1.0*A1;	
+	float t = 0.0;
+	float d;		
+	vec2 q = vec2(0.0);
+	q.x = fbm(p + vec2(1.0));
+	q.y = fbm(p + vec2(1.0));
+	
+	vec2 r = vec2(0.0);
+	r.x = fbm(p + 1.0 * q + 0.15 * time + (scroll * 0.001))+ (scroll * 0.0001) + noise(vec2(scroll))* 0.01;
+	r.y = fbm(p + 1.0 * q + 0.126 * time+ (scroll * 0.001))+ (scroll * 0.0001)+ noise(vec2(scroll))* 0.01;
+	
+	float f = fbm(p + r);
+	vec3 color = mix(
+		vec3(0.101961, 0.619608, 1.666667),
+		vec3(0.666667, 0.666667, 1.498039),
+		clamp((f * f) * 4.0, 0.0, 1.0)
+	);
 
-				F2 = 1.0-cellular2x2((uv+(GA*0.2))*6.0);	
-				A2 = 1.0-(A*0.8);
-				N2 = smoothstep(0.995,1.0,F2)*0.85*A2;				
+	color = vec3((color.x + color.y + color.z)*0.5);
 
-				F3 = 1.0-cellular2x2((uv+(GA*0.4))*4.0);	
-				A3 = 1.0-(A*0.6);
-				N3 = smoothstep(0.99,1.0,F3)*0.65*A3;				
+	color = 1.0 - (f *f * f + 0.6 * f * f + 0.5 * f) * color;
 
-				F4 = 1.0-cellular2x2((uv+(GA*0.6))*3.0);	
-				A4 = 1.0-(A*1.0);
-				N4 = smoothstep(0.98,1.0,F4)*0.4*A4;				
+	// if(color.r > 0.1 && color.r < 0.11){
+	// 		color = color * alpha + vec3(1.0) * (1.0 - alpha);
+	// }else{
+	// 		color = color * alpha + vec3(0.0) * (1.0 - alpha);
+	// }		
+	
+	gl_FragColor = vec4(color, 1.0);
+}
 
-				F5 = 1.0-cellular2x2((uv+(GA))*1.2);	
-				A5 = 1.0-(A*1.0);
-				N5 = smoothstep(0.98,1.0,F5)*0.25*A5;				
-								
-				float Snowout=N5+N4+N3+N2+N1;
-								
-				Snowout = 0.01+(slope*(suns+0.0))+(sunsh*0.1)+N1+N2+N3+N4+N5;
-				
-				gl_FragColor = vec4(Snowout*0.9, Snowout, Snowout*1.1, alpha);
 
-		}

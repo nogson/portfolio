@@ -1,6 +1,6 @@
 import Bg1 from './Bg1.js';
-import Bg2 from './Bg2.js';
-import Bg3 from './Bg3.js';
+// import Bg2 from './Bg2.js';
+// import Bg3 from './Bg3.js';
 
 
 const baseVert = require('./shader/bgMaster.vert');
@@ -83,8 +83,8 @@ export default class Background {
     $(window).scroll(function (e) {
       uScroll = $(e.target).scrollTop();
       this.bg1.scroll = uScroll;
-      this.bg2.scroll = uScroll;
-      this.bg3.scroll = uScroll;
+      // this.bg2.scroll = uScroll;
+      // this.bg3.scroll = uScroll;
 
     }.bind(this));
 
@@ -98,15 +98,15 @@ export default class Background {
         windowW: windowW
       };
 
-      this.bg2.windowSize = {
-        windowH: windowH,
-        windowW: windowW
-      };
+      // this.bg2.windowSize = {
+      //   windowH: windowH,
+      //   windowW: windowW
+      // };
 
-      this.bg3.windowSize = {
-        windowH: windowH,
-        windowW: windowW
-      };
+      // this.bg3.windowSize = {
+      //   windowH: windowH,
+      //   windowW: windowW
+      // };
 
       // レンダラーのサイズを調整する
       renderer.setPixelRatio(window.devicePixelRatio);
@@ -128,20 +128,20 @@ export default class Background {
       windowH: windowH,
       windowW: windowW
     };
-    //テクスチャ2
-    this.bg2 = new Bg2(renderer, windowW, windowH, sectionH);
-    this.texture2 = this.bg2.texture;
-    this.bg2.windowSize = {
-      windowH: windowH,
-      windowW: windowW
-    };
-    //テクスチャ3
-    this.bg3 = new Bg3(renderer, windowW, windowH, sectionH);
-    this.texture3 = this.bg3.texture;
-    this.bg3.windowSize = {
-      windowH: windowH,
-      windowW: windowW
-    };
+    // //テクスチャ2
+    // this.bg2 = new Bg2(renderer, windowW, windowH, sectionH);
+    // this.texture2 = this.bg2.texture;
+    // this.bg2.windowSize = {
+    //   windowH: windowH,
+    //   windowW: windowW
+    // };
+    // //テクスチャ3
+    // this.bg3 = new Bg3(renderer, windowW, windowH, sectionH);
+    // this.texture3 = this.bg3.texture;
+    // this.bg3.windowSize = {
+    //   windowH: windowH,
+    //   windowW: windowW
+    // };
   }
 
   //オブジェクトを作成
@@ -191,14 +191,14 @@ export default class Background {
           type: 't',
           value: this.texture1
         },
-        uTex2: {
-          type: 't',
-          value: this.texture2
-        },
-        uTex3: {
-          type: 't',
-          value: this.texture3
-        }
+        // uTex2: {
+        //   type: 't',
+        //   value: this.texture2
+        // },
+        // uTex3: {
+        //   type: 't',
+        //   value: this.texture3
+        // }
       },
       vertexShader: baseVert,
       fragmentShader: baseFrag,

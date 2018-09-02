@@ -97,8 +97,11 @@ window.onload = function () {
     return false;
   });
 
-  $(window).trigger('scroll');
-  $(window).trigger('resize');
+  setTimeout(function(){
+    $(window).trigger('scroll');
+    $(window).trigger('resize');
+  },1000);
+
 }
 
 
@@ -109,11 +112,11 @@ let showArticle = (elm) => {
     if (index !== 3) {
       TweenMax.to(id, 1.3, {
         width: '100%',
-        ease: Expo.easeOut,
+        ease: Expo.easeInOut,
         delay: 0.4 * index
       });
     } else {
-      TweenMax.to(id, 1.3, {
+      TweenMax.to(id, 2, {
         opacity: 1,
         ease: Expo.easeOut,
         delay: 0.4 * index

@@ -1,8 +1,11 @@
+import Utile from './utile.js';
+
 const vert = require('./shader/bg1.vert');
 const frag = require('./shader/bg1.frag');
 const texture = require('../assets/images/texture1.png');
-
 const THREE = require('three-js')([]);
+
+
 
 //THREE.js用変数
 let camera;
@@ -16,9 +19,10 @@ let uTime = 0;
 let uScroll = 0;
 let uAlpha = 0.0;
 
-var clock = new THREE.Clock();
+let clock = new THREE.Clock();
 let aspect;
 let index = 0;
+let utile = new Utile();
 
 export default class Bg1 {
 
@@ -132,22 +136,11 @@ export default class Bg1 {
   set scroll(value){
     uScroll = value;
     //スクロールごとに計算
-    uAlpha = this.sumAlpha();
+    uAlpha = utile.sumAlpha(this.sectionH,index,uScroll);
   }
 
   get texture(){
     return renderTarget.texture;
-  }
-
-  sumAlpha(){
-    let maxThreshold = this.sectionH * (index + 1);
-    let maxExtraThresholdUnder = maxThreshold - 100;
-    let alpha = 1.0;
-    if(maxExtraThresholdUnder  <  uScroll ){
-      alpha = 1.0 - (uScroll - maxExtraThresholdUnder) / 200;
-    }
-
-    return alpha;
   }
 
   //レンダリング

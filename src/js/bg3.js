@@ -1,5 +1,7 @@
-const vert = require('./shader/bg2.vert');
-const frag = require('./shader/bg2.frag');
+import Utile from './utile.js';
+
+const vert = require('./shader/bg3.vert');
+const frag = require('./shader/bg3.frag');
 const texture = require('../assets/images/texture3.png');
 
 const THREE = require('three-js')([]);
@@ -16,9 +18,10 @@ let uTime = 0;
 let uScroll = 0;
 let uAlpha = 0.0;
 
-var clock = new THREE.Clock();
+let clock = new THREE.Clock();
 let aspect;
 let index = 2;
+let utile = new Utile();
 
 export default class Bg3 {
 
@@ -107,6 +110,10 @@ export default class Bg3 {
         texture: {
           type: 't',
           value: new THREE.TextureLoader().load(texture)
+        },
+        resolution:{
+          type:'v2',
+          value:new THREE.Vector2(this.windowW,this.windowH)
         }
       },
       vertexShader: vert,
@@ -129,28 +136,11 @@ export default class Bg3 {
 
     uScroll = value;
     //スクロールごとに計算
-    uAlpha = this.sumAlpha();
+    uAlpha = utile.sumAlpha(this.sectionH,index,uScroll);
   }
 
   get texture(){
     return renderTarget.texture;
-  }
-
-  sumAlpha(){
-    let minThreshold = this.sectionH * index;
-    let maxThreshold = this.sectionH * (index + 1);
-    let minExtraThresholdOver = minThreshold + 100;
-    let maxExtraThresholdUnder = maxThreshold - 100;
-    let alpha = 1.0;
-
-    if(minExtraThresholdOver > uScroll){
-      alpha = 1.0 - (minExtraThresholdOver - uScroll) / 200;
-    }
-
-    if(maxExtraThresholdUnder  <  uScroll ){
-      alpha = 1.0 - (uScroll - maxExtraThresholdUnder) / 200;
-    }
-    return alpha;
   }
 
   //レンダリング

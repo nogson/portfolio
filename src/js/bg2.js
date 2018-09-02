@@ -1,3 +1,5 @@
+import Utile from './utile.js';
+
 const vert = require('./shader/bg2.vert');
 const frag = require('./shader/bg2.frag');
 const texture = require('../assets/images/texture2.png');
@@ -19,6 +21,7 @@ let uAlpha = 0.0;
 var clock = new THREE.Clock();
 let aspect;
 let index = 1;
+let utile = new Utile();
 
 export default class Bg2 {
 
@@ -107,6 +110,10 @@ export default class Bg2 {
         texture: {
           type: 't',
           value: new THREE.TextureLoader().load(texture)
+        },
+        resolution:{
+          type:'v2',
+          value:new THREE.Vector2(this.windowW,this.windowH)
         }
       },
       vertexShader: vert,
@@ -129,7 +136,7 @@ export default class Bg2 {
 
     uScroll = value;
     //スクロールごとに計算
-    uAlpha = this.sumAlpha();
+    uAlpha = utile.sumAlpha(this.sectionH,index,uScroll);
   }
 
   get texture(){
