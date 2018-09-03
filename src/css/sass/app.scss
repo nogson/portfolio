@@ -201,8 +201,9 @@ canvas {
   position: fixed;
   right: 16px;
   top: 0;
+  display: none;
   @include max-screen($breakpoint-sp){
-    display: none;
+    display: none !important;
   }
   li{
     padding: 5px;

@@ -28,6 +28,7 @@ window.onload = function () {
   let windowH = window.innerHeight;
   let articles = document.getElementsByClassName('md_article');
   let navs = $('#nav li');
+  let nav = $('#nav');
 
   //articleの高さを設定
   $.each(articles, function (index, value) {
@@ -41,6 +42,12 @@ window.onload = function () {
   //スクロールイベント
   $(window).scroll(function (e) {
     let scroll = $(e.target).scrollTop();
+
+    if(scroll > 0){
+      nav.show();
+    }else{
+      nav.hide();
+    }
 
     $.each(articles, function (index, value) {
       //コンテンツの表示
@@ -100,7 +107,7 @@ window.onload = function () {
   setTimeout(function(){
     $(window).trigger('scroll');
     $(window).trigger('resize');
-  },1000);
+  },1500);
 
 }
 

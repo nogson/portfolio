@@ -13,6 +13,12 @@ void main() {
   vec4 texture2 = texture2D(uTex2, vec2(vUv.x, vUv.y));
   vec4 texture3 = texture2D(uTex3, vec2(vUv.x, vUv.y));
 
-  gl_FragColor = texture1;
+  if(time * 0.5 < 1.0){
+    gl_FragColor = texture1 * (time * 0.5);
+  }else{
+    gl_FragColor = texture1;
+  }
+
+  
  
 }
