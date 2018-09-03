@@ -391,6 +391,8 @@ canvas {
   margin-bottom: 32px; }
   .md_sample_box_label > span {
     display: block; }
+  .md_sample_box_label img {
+    height: 20px !important; }
 
 .md_sample_box_thumb_wrap {
   width: 60%;
