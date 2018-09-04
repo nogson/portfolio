@@ -102,7 +102,9 @@ canvas {
   width: 60%;
   margin-left: auto;
   overflow: auto !important;
-  
+  img{
+    max-height: 100%;
+  }
 }
 
 .md_sample_box_thumb{

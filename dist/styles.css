@@ -396,7 +396,10 @@ canvas {
 
 .md_sample_box_thumb_wrap {
   width: 60%;
-  margin-left: auto; }
+  margin-left: auto;
+  overflow: auto !important; }
+  .md_sample_box_thumb_wrap img {
+    max-height: 100%; }
 
 .md_sample_box_thumb {
   background: rgba(255, 255, 255, 0.9);
