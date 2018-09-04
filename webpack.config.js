@@ -25,8 +25,11 @@ module.exports = {
         // 出力するファイル名
         filename: '[name].js',
         // 出力先のパス（v2系以降は絶対パスを指定する必要がある）
-        path: path.join(__dirname, 'dist')
+        //path: path.join(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist')
+
     },
+    
     // ローダーの設定
     module: {
         rules: [

@@ -1,4 +1,4 @@
-precision mediump float;
+precision highp float;
 
 varying vec2 vUv;
 uniform sampler2D uTex1;
@@ -14,9 +14,9 @@ void main() {
   vec4 texture3 = texture2D(uTex3, vec2(vUv.x, vUv.y));
 
   if(time * 0.5 < 1.0){
-    gl_FragColor = texture1 * (time * 0.5);
+    gl_FragColor = (texture1 + texture2) * (time * 0.5);
   }else{
-    gl_FragColor = texture1;
+    gl_FragColor = (texture1 + texture2);
   }
 
   

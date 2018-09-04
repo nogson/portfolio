@@ -76,7 +76,9 @@ void main(void) {
 	vec2 r = vec2(0.0);
 	r.x = fbm(p + 1.0 * q + 0.15 * time + (scroll * 0.001))+ (scroll * 0.0001) + noise(vec2(scroll))* 0.01;
 	r.y = fbm(p + 1.0 * q + 0.126 * time+ (scroll * 0.001))+ (scroll * 0.0001)+ noise(vec2(scroll))* 0.01;
-	
+
+	vec4 tx = texture2D(texture,vec2(vUv.x * r.x,vUv.y * r.y));
+
 	float f = fbm(p + r);
 	vec3 color = mix(
 		vec3(0.101961, 0.619608, 1.666667),
@@ -94,7 +96,7 @@ void main(void) {
 	// 		color = color * alpha + vec3(0.0) * (1.0 - alpha);
 	// }		
 	
-	gl_FragColor = vec4(color, 1.0);
+	gl_FragColor = vec4(color , 1.0);
 }
 
 
