@@ -96,7 +96,7 @@ void main(void) {
 	// 		color = color * alpha + vec3(0.0) * (1.0 - alpha);
 	// }		
 	
-	gl_FragColor = vec4(color , 1.0);
+	gl_FragColor = vec4(color*0.3 , 1.0);
 }
 
 
