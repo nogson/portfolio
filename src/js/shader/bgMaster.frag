@@ -15,8 +15,8 @@ float random(vec2 pos) {
 void main() {
   float alp = 0.0;
   vec4 texture1 = texture2D(uTex1, vec2(vUv.x, vUv.y));
-  vec4 texture2 = texture2D(uTex1, vec2(vUv.x + sin(time + scroll)*0.01 , vUv.y));
-  vec4 texture3 = texture2D(uTex1, vec2(vUv.x + cos(time + scroll)*0.03, vUv.y));
+  vec4 texture2 = texture2D(uTex1, vec2(vUv.x + sin(time)*0.01 , vUv.y+ sin(time)*0.03));
+  vec4 texture3 = texture2D(uTex1, vec2(vUv.x + cos(time)*0.03, vUv.y+ cos(time)*0.01));
   
   vec4 color = vec4(0.0);
   if(time * 0.5 < 1.0){

@@ -83,7 +83,7 @@ export default class Background {
     $(window).scroll(function (e) {
       uScroll = $(e.target).scrollTop();
       this.bg1.scroll = uScroll;
-      this.bg2.scroll = uScroll;
+      //this.bg2.scroll = uScroll;
       // this.bg3.scroll = uScroll;
 
     }.bind(this));
@@ -98,10 +98,10 @@ export default class Background {
         windowW: windowW
       };
 
-      this.bg2.windowSize = {
-        windowH: windowH,
-        windowW: windowW
-      };
+      // this.bg2.windowSize = {
+      //   windowH: windowH,
+      //   windowW: windowW
+      // };
 
       // this.bg3.windowSize = {
       //   windowH: windowH,
@@ -129,12 +129,12 @@ export default class Background {
       windowW: windowW
     };
     //テクスチャ2
-    this.bg2 = new Bg2(renderer, windowW, windowH, sectionH);
-    this.texture2 = this.bg2.texture;
-    this.bg2.windowSize = {
-      windowH: windowH,
-      windowW: windowW
-    };
+    // this.bg2 = new Bg2(renderer, windowW, windowH, sectionH);
+    // this.texture2 = this.bg2.texture;
+    // this.bg2.windowSize = {
+    //   windowH: windowH,
+    //   windowW: windowW
+    // };
     // //テクスチャ3
     // this.bg3 = new Bg3(renderer, windowW, windowH, sectionH);
     // this.texture3 = this.bg3.texture;
@@ -199,10 +199,10 @@ export default class Background {
           type: 't',
           value: this.texture1
         },
-        uTex2: {
-          type: 't',
-          value: this.texture2
-        },
+        // uTex2: {
+        //   type: 't',
+        //   value: this.texture2
+        // },
         // uTex3: {
         //   type: 't',
         //   value: this.texture3
