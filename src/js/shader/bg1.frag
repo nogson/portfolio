@@ -86,9 +86,10 @@ void main(void) {
 		clamp((f * f) * 4.0, 0.0, 1.0)
 	);
 
-	color = vec3((color.x + color.y + color.z)*0.5);
+	color = vec3((color.r + color.g + color.b)*0.5);
 
 	color = 1.0 - (f *f * f + 0.6 * f * f + 0.5 * f) * color;
+	
 
 	// if(color.r > 0.1 && color.r < 0.11){
 	// 		color = color * alpha + vec3(1.0) * (1.0 - alpha);
@@ -96,7 +97,7 @@ void main(void) {
 	// 		color = color * alpha + vec3(0.0) * (1.0 - alpha);
 	// }		
 	
-	gl_FragColor = vec4(color*0.3 , 1.0);
+	gl_FragColor = vec4(color*0.5 , 1.0);
 }
 
 

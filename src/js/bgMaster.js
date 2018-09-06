@@ -187,6 +187,14 @@ export default class Background {
           type: 'f',
           value: uScroll
         },
+        resolution:{
+          type:'v2',
+          value:new THREE.Vector2(windowW,windowH)
+        },
+        docsize:{
+          type:'v2',
+          value:new THREE.Vector2($(document).width(),$(document).height())
+        },
         uTex1: {
           type: 't',
           value: this.texture1
