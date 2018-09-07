@@ -22,19 +22,11 @@ try {
 }
 
 
-let images = [
-  './assets/images/thumb1.gif',
-  './assets/images/thumb2.gif',
-  './assets/images/thumb3.gif',
-];
-
-
+console.log('ok')
 
 window.onload = function () {
+  console.log('dddd')
 
-  for(let i = 0,j = images.length; i ++; i < j){
-    $('<img>').attr('src', images[i]);
-  }
   //背景画像を表示
   new Background();
 
