@@ -132,6 +132,9 @@ canvas {
 .md_aninime{
   overflow: hidden;
   width: 0;
+  &.md_sample_box_thumb{
+    overflow: auto;
+  }
 }
 
 .md_title_name{
