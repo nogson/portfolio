@@ -135,6 +135,9 @@ canvas {
   &.md_sample_box_thumb{
     overflow: auto;
     flex-shrink:0;
+    @include max-screen($breakpoint-sp){
+      height: 100%;
+    }
   }
 }
 
