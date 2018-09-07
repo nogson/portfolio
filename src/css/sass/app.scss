@@ -134,6 +134,7 @@ canvas {
   width: 0;
   &.md_sample_box_thumb{
     overflow: auto;
+    flex-shrink:0;
   }
 }
 

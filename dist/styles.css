@@ -422,7 +422,8 @@ canvas {
   overflow: hidden;
   width: 0; }
   .md_aninime.md_sample_box_thumb {
-    overflow: auto; }
+    overflow: auto;
+    flex-shrink: 0; }
 
 .md_title_name {
   margin-top: 16px;
