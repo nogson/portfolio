@@ -47,6 +47,7 @@ canvas {
   @include max-screen($breakpoint-sp){
     &.md_sample_box{
       flex-direction: column;
+      height: 100%;
     }
     padding: 24px;
   }
@@ -135,9 +136,6 @@ canvas {
   &.md_sample_box_thumb{
     overflow: auto;
     flex-shrink:0;
-    @include max-screen($breakpoint-sp){
-      height: 100%;
-    }
   }
 }
 

@@ -359,7 +359,8 @@ canvas {
     .md_article {
       padding: 24px; }
       .md_article.md_sample_box {
-        flex-direction: column; } }
+        flex-direction: column;
+        height: 100%; } }
   .md_article > *:first-child {
     width: 50%; }
     @media screen and (max-width: 480px) {
@@ -424,9 +425,6 @@ canvas {
   .md_aninime.md_sample_box_thumb {
     overflow: auto;
     flex-shrink: 0; }
-    @media screen and (max-width: 480px) {
-      .md_aninime.md_sample_box_thumb {
-        height: 100%; } }
 
 .md_title_name {
   margin-top: 16px;
