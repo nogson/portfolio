@@ -409,7 +409,8 @@ canvas {
   opacity: 0; }
   @media screen and (max-width: 480px) {
     .md_sample_box_thumb {
-      width: 100% !important; } }
+      width: 100% !important;
+      height: 100% !important; } }
   .md_sample_box_thumb img {
     width: 100%;
     height: 100%;

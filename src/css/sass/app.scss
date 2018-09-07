@@ -111,11 +111,11 @@ canvas {
   background: rgba(#FFF,0.9);
   width: 60% !important;
   margin-left: auto;
- 
   box-sizing: border-box;
   opacity: 0;
   @include max-screen($breakpoint-sp){
     width: 100% !important;
+    height:100% !important;
   }
   img{
     width: 100%;
