@@ -22,13 +22,19 @@ try {
 }
 
 
-console.log('ok')
+
+$("#loader").on('webkitAnimationEnd', function () {
+  $('#preloader').fadeOut();
+  //背景画像を表示
+  new Background();
+  setTimeout(function () {
+    $(window).trigger('scroll');
+    $(window).trigger('resize');
+  }, 1500);
+});
 
 window.onload = function () {
   console.log('dddd')
-
-  //背景画像を表示
-  new Background();
 
   let windowH = window.innerHeight;
   let articles = document.getElementsByClassName('md_article');
@@ -48,9 +54,9 @@ window.onload = function () {
   $(window).scroll(function (e) {
     let scroll = $(e.target).scrollTop();
 
-    if(scroll > 0){
+    if (scroll > 0) {
       nav.show();
-    }else{
+    } else {
       nav.hide();
     }
 
@@ -67,12 +73,12 @@ window.onload = function () {
       }
 
       //
-      if(contentTop <= scroll && (contentTop + windowH) > scroll){
-        if(nav.hasClass('act') === false){
+      if (contentTop <= scroll && (contentTop + windowH) > scroll) {
+        if (nav.hasClass('act') === false) {
           nav.addClass('act');
         }
-      }else{
-        if(nav.hasClass('act') === true){
+      } else {
+        if (nav.hasClass('act') === true) {
           nav.removeClass('act');
         }
       }
@@ -88,9 +94,9 @@ window.onload = function () {
   });
 
   //ナビゲーション 
-  navs.on('click', function (e,i) {
+  navs.on('click', function (e, i) {
 
-    if($(this).hasClass('act') === true){
+    if ($(this).hasClass('act') === true) {
       return false;
     }
 
@@ -99,22 +105,16 @@ window.onload = function () {
     // スクロールの速度
     let speed = 400; // ミリ秒で記述
     let target = $(articles[index]);
-   
+
     let position = target.offset().top;
 
     $('html,body').animate({
       scrollTop: position
-    }, speed, 'swing',function(){
-    });
+    }, speed, 'swing', function () {});
     return false;
   });
 
-  setTimeout(function(){
-    $(window).trigger('scroll');
-    $(window).trigger('resize');
-  },1500);
-
-}
+};
 
 
 let showArticle = (elm) => {
