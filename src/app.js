@@ -5,6 +5,8 @@ import {
 import './css/sass/normalize.scss';
 import './css/sass/app.scss';
 
+import './assets/images/icon_open.svg';
+
 let notWebGL = function () {
   // webGL非対応時の記述
   console.log('this browser does not support webGL')
@@ -34,7 +36,6 @@ $("#loader").on('webkitAnimationEnd', function () {
 });
 
 window.onload = function () {
-  console.log('dddd')
 
   let windowH = window.innerHeight;
   let articles = document.getElementsByClassName('md_article');

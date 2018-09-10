@@ -332,7 +332,7 @@ body {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
   color: #2e2f42;
-  background: #232222; }
+  background: #000; }
 
 img {
   vertical-align: bottom; }
@@ -355,11 +355,11 @@ canvas {
   justify-content: center;
   align-items: center;
   z-index: 100;
-  background: #1f1f1f; }
+  background: #000; }
   #preloader svg {
     width: 70px;
     stroke: #FFF;
-    stroke-width: 5px;
+    stroke-width: 2px;
     fill: transparent;
     stroke-dasharray: 3000px;
     stroke-dashoffset: 3000px;
@@ -431,22 +431,26 @@ canvas {
     height: 20px !important; }
 
 .md_sample_box_thumb_wrap {
-  width: 60%;
+  width: 60% !important;
+  text-align: right;
   margin-left: auto;
-  overflow: auto !important; }
+  overflow: auto !important;
+  opacity: 0; }
   .md_sample_box_thumb_wrap img {
     max-height: 100%; }
+  @media screen and (max-width: 480px) {
+    .md_sample_box_thumb_wrap {
+      width: 100% !important; } }
 
 .md_sample_box_thumb {
   background: rgba(255, 255, 255, 0.9);
-  width: 60% !important;
+  width: 100% !important;
   margin-left: auto;
+  margin-bottom: 16px;
   padding: 16px;
-  box-sizing: border-box;
-  opacity: 0; }
+  box-sizing: border-box; }
   @media screen and (max-width: 480px) {
     .md_sample_box_thumb {
-      width: 100% !important;
       padding: 4px; } }
   .md_sample_box_thumb img {
     width: 100%;
@@ -556,3 +560,20 @@ canvas {
   .md_icons img {
     width: 30px;
     color: #FFF; }
+
+.btn_visit {
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #FFF;
+  font-weight: normal; }
+  .btn_visit:link, .btn_visit:visited, .btn_visit:hover {
+    color: #FFF; }
+
+.icon_open {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: url(./assets/images/icon_open.svg) no-repeat center center;
+  background-size: contain;
+  margin-right: 5px; }

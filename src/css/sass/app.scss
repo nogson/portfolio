@@ -15,7 +15,7 @@ body {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
   color: $color3;
-  background: #232222;
+  background: #000;
 }
 
 img{
@@ -42,12 +42,12 @@ canvas {
   justify-content: center;
   align-items: center;
   z-index: 100;
-  background: rgb(31, 31, 31);
+  background: #000;
 
   svg {
     width: 70px;
     stroke: #FFF;
-    stroke-width: 5px;
+    stroke-width: 2px;
     fill: transparent;
     stroke-dasharray: 3000px;
     stroke-dashoffset: 3000px;
@@ -145,23 +145,27 @@ canvas {
 }
 
 .md_sample_box_thumb_wrap{
-  width: 60%;
+  width: 60% !important;
+  text-align: right;
   margin-left: auto;
   overflow: auto !important;
+  opacity: 0;
   img{
     max-height: 100%;
+  }
+  @include max-screen($breakpoint-sp){
+    width: 100% !important;
   }
 }
 
 .md_sample_box_thumb{
   background: rgba(#FFF,0.9);
-  width: 60% !important;
+  width: 100% !important;
   margin-left: auto;
+  margin-bottom: 16px;
   padding: 16px;
   box-sizing: border-box;
-  opacity: 0;
   @include max-screen($breakpoint-sp){
-    width: 100% !important;
     padding: 4px;
   }
   img{
@@ -322,4 +326,28 @@ canvas {
     width: 30px;
     color: #FFF;
   }
+}
+
+.btn_visit{
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border:1px solid #FFF;
+  font-weight: normal;
+  &:link,
+  &:visited,
+  &:hover
+  {
+    color: #FFF;
+  }
+
+}
+
+.icon_open{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: url(./assets/images/icon_open.svg) no-repeat center center;
+  background-size: contain;
+  margin-right: 5px;
 }
