@@ -332,7 +332,7 @@ body {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
   color: #2e2f42;
-  background: #232222; }
+  background: #000; }
 
 img {
   vertical-align: bottom; }
@@ -355,7 +355,7 @@ canvas {
   justify-content: center;
   align-items: center;
   z-index: 100;
-  background: #232222; }
+  background: #000; }
   #preloader svg {
     width: 70px;
     stroke: #FFF;
