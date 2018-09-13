@@ -1,3 +1,4 @@
+import LazyLoad from "vanilla-lazyload";
 import Background from './js/bgMaster.js';
 import {
   TweenMax
@@ -5,7 +6,58 @@ import {
 import './css/sass/normalize.scss';
 import './css/sass/app.scss';
 
+import './assets/images/title_webgl.svg';
+import './assets/images/title_3d.svg';
+import './assets/images/title_about.svg';
+import './assets/images/title_aftereffects.svg';
+import './assets/images/title_graphic.svg';
+import './assets/images/title_happ.svg';
+import './assets/images/title_name.svg';
+import './assets/images/title_processing.svg';
+import './assets/images/title_td.svg';
+
+import './assets/images/title_name2_1.svg';
+import './assets/images/title_name2_2.svg';
+import './assets/images/title_name2_3.svg';
+import './assets/images/title_name2.svg';
+
 import './assets/images/icon_open.svg';
+import './assets/images/title1_1.svg';
+import './assets/images/title1_2.svg';
+
+import './assets/images/title00.svg';
+import './assets/images/title01.svg';
+import './assets/images/title02.svg';
+import './assets/images/title03.svg';
+import './assets/images/title04.svg';
+import './assets/images/title05.svg';
+import './assets/images/title06.svg';
+import './assets/images/title07.svg';
+import './assets/images/title08.svg';
+import './assets/images/title09.svg';
+import './assets/images/title10.svg';
+import './assets/images/title11.svg';
+import './assets/images/title12.svg';
+import './assets/images/title13.svg';
+import './assets/images/title14.svg';
+import './assets/images/title15.svg';
+import './assets/images/title16.svg';
+
+import './assets/images/thumb1.gif';
+import './assets/images/thumb2.gif';
+import './assets/images/thumb3.gif';
+import './assets/images/thumb4.gif';
+import './assets/images/thumb5.gif';
+import './assets/images/thumb6.png';
+import './assets/images/thumb7.png';
+import './assets/images/thumb8.gif';
+import './assets/images/thumb9.gif';
+import './assets/images/thumb10.png';
+import './assets/images/thumb11.gif';
+import './assets/images/thumb12.gif';
+import './assets/images/thumb13.gif';
+import './assets/images/thumb14.gif';
+import './assets/images/thumb15.gif';
 
 let notWebGL = function () {
   // webGL非対応時の記述
@@ -22,6 +74,10 @@ try {
 } catch (e) {
   notWebGL();
 }
+
+let myLazyLoad = new LazyLoad({
+  elements_selector: ".lazyload"
+});
 
 
 
