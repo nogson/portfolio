@@ -42,7 +42,6 @@ import './assets/images/title13.svg';
 import './assets/images/title14.svg';
 import './assets/images/title15.svg';
 import './assets/images/title16.svg';
-
 import './assets/images/thumb1.gif';
 import './assets/images/thumb2.gif';
 import './assets/images/thumb3.gif';
@@ -81,17 +80,16 @@ let myLazyLoad = new LazyLoad({
 
 
 
-$("#loader").on('webkitAnimationEnd', function () {
-  $('#preloader').fadeOut();
+// $("#loader").on('webkitAnimationEnd', function () {
+
+
+// });
+
+// window.onload = function () {
+  $(function() {
+  window.scrollTo(0,0);
   //背景画像を表示
   new Background();
-  setTimeout(function () {
-    $(window).trigger('scroll');
-    $(window).trigger('resize');
-  }, 1500);
-});
-
-window.onload = function () {
 
   let windowH = window.innerHeight;
   let articles = document.getElementsByClassName('md_article');
@@ -171,7 +169,14 @@ window.onload = function () {
     return false;
   });
 
-};
+  setTimeout(function () {
+    $('#preloader').fadeOut(1000,'linear',function(){
+      $(window).trigger('scroll');
+      $(window).trigger('resize');
+    });
+  }, 1500);
+
+});
 
 
 let showArticle = (elm) => {

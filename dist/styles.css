@@ -363,23 +363,17 @@ canvas {
     fill: transparent;
     stroke-dasharray: 3000px;
     stroke-dashoffset: 3000px;
-    animation: anim 6s ease-in-out 500ms forwards; }
+    animation: anim 3s ease-in-out 500ms forwards; }
 
 @keyframes anim {
   0% {
     stroke-dashoffset: 3000px; }
-  20% {
-    stroke-dashoffset: 0;
-    fill: transparent; }
   50% {
     stroke-dashoffset: 0;
-    fill: #FFF; }
-  70% {
-    fill: #FFF;
-    stroke-dashoffset: 0; }
+    fill: transparent; }
   100% {
-    fill: transparent;
-    stroke-dashoffset: 3000px; } }
+    stroke-dashoffset: 0;
+    fill: #FFF; } }
 
 .md_main {
   width: 100%; }
