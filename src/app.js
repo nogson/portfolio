@@ -1,4 +1,4 @@
-import LazyLoad from "vanilla-lazyload";
+import LazyLoad from 'vanilla-lazyload';
 import Background from './js/bgMaster.js';
 import {
   TweenMax
@@ -6,6 +6,7 @@ import {
 import './css/sass/normalize.scss';
 import './css/sass/app.scss';
 
+import './assets/images/icon.png';
 import './assets/images/title_webgl.svg';
 import './assets/images/title_3d.svg';
 import './assets/images/title_about.svg';
@@ -15,7 +16,6 @@ import './assets/images/title_happ.svg';
 import './assets/images/title_name.svg';
 import './assets/images/title_processing.svg';
 import './assets/images/title_td.svg';
-
 import './assets/images/title_name2_1.svg';
 import './assets/images/title_name2_2.svg';
 import './assets/images/title_name2_3.svg';
